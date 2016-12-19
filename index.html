@@ -1,0 +1,56 @@
+<html>
+  <div id="debug"></div>
+  <div id="wave"></div>
+</html>
+<script>
+  var debug = document.getElementById('debug')
+  var wave  = document.getElementById('wave')
+  var html  = document.getElementsByTagName('html')[0]
+
+  var start = true;
+
+  var width  = document.body.clientWidth
+  var height = document.body.clientHeight
+
+  html.addEventListener('mousemove', function(event) {
+    if ( start ) {
+      audio       = new AudioContext;
+      oscillator  = audio.createOscillator()
+      gain        = audio.createGain()
+      destination = audio.destination;
+
+      oscillator.connect( gain )
+      gain.connect( destination )
+      
+      start = oscillator.start()
+
+      // console.log(oscillator, gain, destination, h)
+    }
+
+
+    var vol     = gain.gain.value = event.pageY / 999;
+    var freq    = (oscillator.frequency.value = event.pageX)
+    var freqMod = freq % 3
+
+    var rgb = [
+      Math.round(event.pageX/width * 255),
+      Math.round(event.pageY/height * 255),
+      127
+    ];
+
+    document.body.style['background'] = 'rgb('+rgb.join()+')';
+    debug.innerHTML = `
+      <p>pageY: <b>${event.pageY}</b></p>
+      <p>pageX: <b>${event.pageX}</b></p>
+      <p>gain: <b>${vol}</b></p>
+      <p>freqMod: <b>${freqMod}</b></p>
+      <p>rgb: <b>${rgb.join()}</b></p>
+    `;
+
+    with(event) {
+      wave.innerHTML += "​╱╲" [vol, freqMod]
+    }
+
+  })
+
+</script>

@@ -1,0 +1,17 @@
+<html onmousemove='if(h)with(new AudioContext)o=createOscillator(),o.connect(g=createGain()),g.connect(destination),h=o.start();with(event)innerHTML+="​╱╲"[g.gain.value=pageY/999,(o.frequency.value=pageX)%3]'id=h><!--
+
+10 PRINT THEREMIN
+A 219bytes demo by @p01 first presented at Web Rebels 2016 
+
+This comment and anything after it can be removed without altering this demo.
+
+This demonstration recreates two things in the fewest bytes possible:
+
+1. The famous labyrinth from the C64 Basic program "10 PRINT CHR$(205.5+RND(1)); : GOTO 10" which serves as a lens to explore creative coding and programing in society in the book of the same name. ( http://10print.org )
+
+2. A theremin instrument ( https://en.wikipedia.org/wiki/Theremin ) using the Web Audio API and the mouse coordinates to map the distance of the hands to the antenas.
+
+Hope you appreciate this,
+Learn more about it at http://www.p01.org/10_print_theremin/
+
+-->10 PRINT THEREMIN 219bytes by @p01<script>onclick = function(){ location = '../'; } </script>
