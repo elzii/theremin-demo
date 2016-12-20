@@ -20,12 +20,14 @@
       float: left;
       background: rgba(255,255,255,0.0);
       margin: 0px;
-      transition: background-color 1s;
+      transition: opacity 1s;
+      opacity:0;
     }
 
     .box:hover {
       background-color: rgba(230, 230, 230, 0.4);
       transition: none;
+      opacity:1;
     }
     
 
@@ -48,7 +50,8 @@
 </body>
 </html>
 <script>
-  var body  = document.body
+  var body    = document.body
+  var boxes   = document.querySelectorAll('.box')
   var overlay = document.getElementById('overlay')
   var debug = document.getElementById('debug')
   var wave  = document.getElementById('wave')
@@ -85,7 +88,12 @@
       127
     ];
 
-    body.style['background'] = 'rgb('+rgb.join()+')';
+    // body.style['background'] = 'rgb('+rgb.join()+')';
+
+    document.querySelectorAll('.box').forEach(function(box,i) {
+      box.style['background'] = 'rgb('+rgb.join()+')';
+    })
+
     debug.innerHTML = `
       <p>pageY: <b>${event.pageY}</b></p>
       <p>pageX: <b>${event.pageX}</b></p>
@@ -100,15 +108,15 @@
 
   })
 
+  for ( var i=0; i<400; i++) {
+    var box = document.createElement('div')
+        box.className = 'box';
+
+    overlay.appendChild(box)
+  }
 
   document.addEventListener('DOMContentLoaded', function(event) {
 
-    for ( var i=0; i<400; i++) {
-      var box = document.createElement('div')
-          box.className = 'box';
-
-      overlay.appendChild(box)
-    }
   })
 
 
