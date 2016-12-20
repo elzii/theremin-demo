@@ -1,16 +1,63 @@
 <html>
+<head>
+  <style>
+    #canvas {
+      position: absolute;
+      width:100%;height:100%;
+      top:0;left:0;
+      z-index:0;
+    }
+    #overlay {
+      position: absolute;
+      width:100%;height:100%;
+      top:0;left:0;
+      z-index:10;
+    }
+
+    .box {
+      position: relative;
+      width:5%;height:5%;
+      float: left;
+      background: rgba(255,255,255,0.0);
+      margin: 0px;
+      transition: background-color 1s;
+    }
+
+    .box:hover {
+      background-color: rgba(230, 230, 230, 0.4);
+      transition: none;
+    }
+    
+
+
+    @keyframes bgOpacity {
+      0% {
+        opacity:0;
+      }
+      100% {
+        opacity:1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="overlay"></div>
   <div id="debug"></div>
   <div id="wave"></div>
+  <!-- <canvas id="canvas"></canvas> -->
+</body>
 </html>
 <script>
+  var body  = document.body
+  var overlay = document.getElementById('overlay')
   var debug = document.getElementById('debug')
   var wave  = document.getElementById('wave')
   var html  = document.getElementsByTagName('html')[0]
 
   var start = true;
 
-  var width  = document.body.clientWidth
-  var height = document.body.clientHeight
+  var width  = body.clientWidth
+  var height = body.clientHeight
 
   html.addEventListener('mousemove', function(event) {
     if ( start ) {
@@ -38,7 +85,7 @@
       127
     ];
 
-    document.body.style['background'] = 'rgb('+rgb.join()+')';
+    body.style['background'] = 'rgb('+rgb.join()+')';
     debug.innerHTML = `
       <p>pageY: <b>${event.pageY}</b></p>
       <p>pageX: <b>${event.pageX}</b></p>
@@ -48,9 +95,22 @@
     `;
 
     with(event) {
-      wave.innerHTML += "​╱╲" [vol, freqMod]
+      // wave.innerHTML += "​╱╲" [vol, freqMod]
     }
 
   })
+
+
+  document.addEventListener('DOMContentLoaded', function(event) {
+
+    for ( var i=0; i<400; i++) {
+      var box = document.createElement('div')
+          box.className = 'box';
+
+      overlay.appendChild(box)
+    }
+  })
+
+
 
 </script>
